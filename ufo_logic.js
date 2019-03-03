@@ -37,16 +37,51 @@ let sightings = [{
     comments: "3 Red objects hovering over El Cajon CA"
   }];
 
-//build filter object
+  
+  //build filter object
 //get all elements of form
 //for element in elements, if not null add to filter object
-filterObj = {};
+
 //
 //write function for filter
 //for key in filterObj
 //if item[key] != filterObj[key] return false;
 //return true
-//
+
+//select filter button
+filterBtn = d3.select("#filter-click");
+
+//select filter fields
+let formTable = d3.select("#filter-table");
+
+//let inputFields = formTable.selectAll("#filter-table>p>label>input").nodes();
+let inputFields = formTable.selectAll("input").nodes();
+
+//declare filter object
+filterObj = {};
+
+//Add event handler to filter button
+filterBtn.on("click", function() {
+
+  // Prevent the page from refreshing
+  d3.event.preventDefault();
+
+  //construct filter object
+  inputFields.forEach(element => {
+    
+   if(element.value){
+     
+    filterObj[element.name] = element.value;
+
+    }
+   });
+  });
+  
+  
+
+  // // Use the form input to filter the data by blood type
+  // filteredPeople = people.filter(person => person.bloodType === inputVal);
+
 
 // Create a custom filtering function
 function filterList(site,ind,arr) {
@@ -55,7 +90,7 @@ function filterList(site,ind,arr) {
   
   // filter() uses the custom function as its argument
 var filteredTable = sightings.filter(filterList);
-
+/*
 function injectTable(filTable){
 
     filTable.forEach(el => {
@@ -72,7 +107,7 @@ function injectTable(filTable){
 }
 
 injectTable(filteredTable);
-
+*/
   /*
     1. `date/time`
   2. `city`
