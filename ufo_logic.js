@@ -37,82 +37,67 @@ let sightings = [{
     comments: "3 Red objects hovering over El Cajon CA"
   }];
 
-  
-  //build filter object
-//get all elements of form
-//for element in elements, if not null add to filter object
-
-//
-//write function for filter
-//for key in filterObj
-//if item[key] != filterObj[key] return false;
-//return true
-
 //select filter button
-filterBtn = d3.select("#filter-click");
+let filterBtn = d3.select("#filter-click");
 
-//select filter fields
+//select filter form fields
 let formTable = d3.select("#filter-table");
 
-//let inputFields = formTable.selectAll("#filter-table>p>label>input").nodes();
 let inputFields = formTable.selectAll("input").nodes();
 
-//declare filter object
-filterObj = {};
+let clearFilter = d3.select("#clear-filter");
 
+clearFilter.on("click", function(){
+
+  inputFields.forEach(function(el){
+    el.value = "";
+  });
+  injectTable(sightings);
+});
 //Add event handler to filter button
 filterBtn.on("click", function() {
 
-  // Prevent the page from refreshing
+  let filterObj = {};
+  //let filterObj = {datetime: "1/1/2011"};
+
   d3.event.preventDefault();
 
   //construct filter object
-  inputFields.forEach(element => {
-    
-   if(element.value){
-     
-    filterObj[element.name] = element.value;
-
-    }
-   });
+  inputFields.forEach(el => {
+   if(el.value){ 
+    filterObj[el.name] = el.value;
+   }
+   
   });
-  
-  
 
-  // // Use the form input to filter the data by blood type
-  // filteredPeople = people.filter(person => person.bloodType === inputVal);
+   // Create a custom filtering function
+   function filterList(sighting) {
+    for(let [key,val] of Object.entries(filterObj)){
+      if(sighting[key] != val){
+        return false;
+      }
+      return true; 
+      }
+   }
 
+  let filteredList = sightings.filter(filterList);
+  //console.log(filteredList);
+  injectTable(filteredList); 
+   
+});
+    
+function injectTable(filList){
 
-// Create a custom filtering function
-function filterList(site,ind,arr) {
-    return site.datetime === "1/1/2010";
-  }
-  
-  // filter() uses the custom function as its argument
-var filteredTable = sightings.filter(filterList);
-/*
-function injectTable(filTable){
+  tableBody = d3.select("tbody");
+  tableBody.html("");
 
-    filTable.forEach(el => {
-        console.log(`<tr>
-                     <td>${el.datetime}</td>
-                     <td>${el.city}</td>
-                     <td>${el.state}</td>
-                     <td>${el.country}</td>
-                     <td>${el.shape}</td>
-                     <td>${el.durationMinutes}</td>
-                     <td>${el.comments}</td>
-                     </tr>`);
+  filList.forEach(el => {
+    newRow = tableBody.append("tr");
+    
+    Object.entries(el).forEach(function([key,val]){ 
+                               newCell = newRow.append("td");
+                               newCell.text(val);
+                               });
     });
 }
-
-injectTable(filteredTable);
-*/
-  /*
-    1. `date/time`
-  2. `city`
-  3. `state`
-  4. `country`
-  5. `shape`
-*/
 
