@@ -43,7 +43,7 @@ tbody{
     font-family: 'Special Elite', cursive;
   }
 
-  @media (max-width: 680px) {
+  @media (max-width: 815px) {
     .head-text{font-size: 5rem;}
 }
 
@@ -64,6 +64,8 @@ tbody{
   .btn{
 
     margin-right:1em;
+    size:1em;
+    background-color:red;   
   }
 
   a:hover{

@@ -78,9 +78,11 @@ filterBtn.on("click", function() {
       if(sighting[key] != val){
         return false;
       }
-      return true; 
-      }
+      
+    }
+    return true;
    }
+
 
   let filteredList = sightings.filter(filterList);
   //console.log(filteredList);
