@@ -1,4 +1,4 @@
-var data = [{
+var sightings = [{
     datetime: "1/1/2010",
     city: "benton",
     state: "ar",
