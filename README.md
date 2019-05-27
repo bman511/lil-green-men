@@ -1,2 +1,3 @@
 # lil-green-men
-A web page that allows for dynamic filtering of UFO sightings using various fields
+
+This project created a web page that allows for dynamic filtering of UFO sightings using various filter fields.  The project used HTML, CSS, and Javascript.  Bootstrap was used for styling tables and forms while d3.js was utilized to construct the table using a source JSON file along with providing filtering and click events.
